@@ -2273,6 +2273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85a65603eae507a4688f0edb3b5ce6ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emptyTile: {fileID: 0}
 --- !u!1 &1820384842
 GameObject:
   m_ObjectHideFlags: 0
@@ -2347,7 +2348,7 @@ TilemapRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 0.0019304752, y: 0, z: 0}
+  m_ChunkCullingBounds: {x: 49.5, y: 49.5, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
@@ -2411,7 +2412,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 5481a4e80b37bf74fac8bb4fbd95f105, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 1
-    m_Data: {fileID: 21300000, guid: 82a531f8e76b5ee4d988e5ac28ae542a, type: 3}
+    m_Data: {fileID: 21300000, guid: e943c9cfad6b75446a15041733b20517, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: 21300000, guid: 4c31611f2830c15448b1c69d07455e54, type: 3}
   m_TileMatrixArray:
