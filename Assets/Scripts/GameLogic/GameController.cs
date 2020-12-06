@@ -81,6 +81,16 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public void LoadLevel2()
+    {
+        SceneManager.LoadScene("Level2");
+    }
+
+    public void LoadSurprise()
+    {
+        SceneManager.LoadScene("Surprise");
+    }
+
     public void EndGame()
     {
         Application.Quit();

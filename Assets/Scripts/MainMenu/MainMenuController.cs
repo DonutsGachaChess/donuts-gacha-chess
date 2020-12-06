@@ -19,7 +19,7 @@ public class MainMenuController : MonoBehaviour
 
     public void LoadGame()
     {
-        SceneManager.LoadScene("JohnPhamTestScene");
+        SceneManager.LoadScene("Level1");
     }
 
     public void Quit()
