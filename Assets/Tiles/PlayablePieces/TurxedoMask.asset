@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad0b304efca46794f945c89b6aa775b6, type: 3}
-  m_Name: Cavadeer
+  m_Name: TurxedoMask
   m_EditorClassIdentifier: 
-  unitType: 0
-  sprite: {fileID: 21300000, guid: e943c9cfad6b75446a15041733b20517, type: 3}
+  unitType: 1
+  sprite: {fileID: 21300000, guid: 652d4b44d866a76478aa7dc120c36b09, type: 3}
   owner: 0

@@ -17,6 +17,8 @@ public class PieceSelector : MonoBehaviour
     private int selectedTileXCoord;
     private int selectedTileYCoord;
 
+    private List<Tuple<int, int>> possibleMoveCoords = new List<Tuple<int, int>>();
+
     private List<Tuple<int, int>> highlightedTileCoords = new List<Tuple<int, int>>();
 
     // Start is called before the first frame update
@@ -37,28 +39,34 @@ public class PieceSelector : MonoBehaviour
             int xCoord = Mathf.FloorToInt(hit.point.x);
             int yCoord = Mathf.FloorToInt(hit.point.y);
 
+
             PlayerTile clickedTile = (PlayerTile) playerTiles.GetTile(new Vector3Int(xCoord, yCoord, 0));
             if (!pieceSelected)
             {
-                highlightTilemap.SetTile(new Vector3Int(xCoord, yCoord, 0), highlightedTile);
-                highlightedTileCoords.Add(new Tuple<int, int>(xCoord, yCoord));
+                // Can only select your pieces
+                if (clickedTile != null && clickedTile.owner == 0)
+                {
+                    highlightedTileCoords.Add(new Tuple<int, int>(xCoord, yCoord));
+                    possibleMoveCoords = getPossibleMoves(clickedTile, xCoord, yCoord);
+                    highlightedTileCoords.AddRange(possibleMoveCoords);
+                    foreach (Tuple<int, int> coords in highlightedTileCoords)
+                    {
+                        highlightTilemap.SetTile(new Vector3Int(coords.Item1, coords.Item2, 0), highlightedTile);
+                    }
 
-                
+                    currentlySelectedTile = clickedTile;
 
-
-                // TODO: add movement highlight
-
-                currentlySelectedTile = clickedTile;
-
-                pieceSelected = true;
-                selectedTileXCoord = xCoord;
-                selectedTileYCoord = yCoord;
+                    pieceSelected = true;
+                    selectedTileXCoord = xCoord;
+                    selectedTileYCoord = yCoord;
+                }
             }
             else
             {
-                // TODO: require valid moves
+                Tuple<int, int> clickedTileCoord = new Tuple<int, int>(xCoord, yCoord);
+                bool validMove = possibleMoveCoords.Contains(clickedTileCoord);
 
-                if (clickedTile == null || clickedTile.owner != currentlySelectedTile.owner)
+                if ((clickedTile == null || clickedTile.owner != currentlySelectedTile.owner) && validMove)
                 {
                     pieceSelected = false;
                     playerTiles.SetTile(new Vector3Int(xCoord, yCoord, 0), currentlySelectedTile);
@@ -67,14 +75,14 @@ public class PieceSelector : MonoBehaviour
                     playerTiles.SetTile(new Vector3Int(selectedTileXCoord, selectedTileYCoord, 0), emptyTile);
 
                     RemoveHighlights();
-                    // TODO: remove movement highlight
                 }
-                else
+                else if (clickedTile != null && clickedTile.owner == currentlySelectedTile.owner)
                 {
                     Debug.LogError("tried to take own piece");
                     // TODO: display error to user, sound effect
                     currentlySelectedTile = null;
                     pieceSelected = false;
+                    RemoveHighlights();
                 }
 
             }
@@ -89,6 +97,52 @@ public class PieceSelector : MonoBehaviour
             currentlySelectedTile = null;
             pieceSelected = false;
         }
+    }
+
+    private List<Tuple<int, int>> getPossibleMoves(PlayerTile clickedTile, int xCoord, int yCoord)
+    {
+        List<Tuple<int, int>> movementCoords = new List<Tuple<int, int>>();
+
+        switch (clickedTile.unitType)
+        {
+            case UnitType.Cavadeer:
+                movementCoords.Add(new Tuple<int, int>(xCoord + 1, yCoord + 1));
+                movementCoords.Add(new Tuple<int, int>(xCoord + 2, yCoord + 2));
+
+                movementCoords.Add(new Tuple<int, int>(xCoord - 1, yCoord - 1));
+                movementCoords.Add(new Tuple<int, int>(xCoord - 2, yCoord - 2));
+
+                movementCoords.Add(new Tuple<int, int>(xCoord + 1, yCoord - 1));
+                movementCoords.Add(new Tuple<int, int>(xCoord + 2, yCoord - 2));
+
+                movementCoords.Add(new Tuple<int, int>(xCoord - 1, yCoord + 1));
+                movementCoords.Add(new Tuple<int, int>(xCoord - 2, yCoord + 2));
+                break;
+            case UnitType.TurxedoMask:
+                movementCoords.Add(new Tuple<int, int>(xCoord + 1, yCoord + 1));
+                movementCoords.Add(new Tuple<int, int>(xCoord - 1, yCoord - 1));
+                movementCoords.Add(new Tuple<int, int>(xCoord + 1, yCoord - 1));
+                movementCoords.Add(new Tuple<int, int>(xCoord - 1, yCoord + 1));
+                movementCoords.Add(new Tuple<int, int>(xCoord - 1, yCoord));
+                movementCoords.Add(new Tuple<int, int>(xCoord + 1, yCoord));
+                movementCoords.Add(new Tuple<int, int>(xCoord, yCoord + 1));
+                movementCoords.Add(new Tuple<int, int>(xCoord, yCoord - 1));
+                break;
+            case UnitType.Squizard:
+                movementCoords.Add(new Tuple<int, int>(xCoord + 2, yCoord + 1));
+                movementCoords.Add(new Tuple<int, int>(xCoord - 2, yCoord - 1));
+                movementCoords.Add(new Tuple<int, int>(xCoord + 2, yCoord - 1));
+                movementCoords.Add(new Tuple<int, int>(xCoord - 2, yCoord + 1));
+                movementCoords.Add(new Tuple<int, int>(xCoord - 1, yCoord + 2));
+                movementCoords.Add(new Tuple<int, int>(xCoord + 1, yCoord - 2));
+                movementCoords.Add(new Tuple<int, int>(xCoord + 1, yCoord + 2));
+                movementCoords.Add(new Tuple<int, int>(xCoord - 1, yCoord - 2));
+                // TODO: add ranged capture
+                break;
+        }
+
+        return movementCoords;
+
     }
 
     private void RemoveHighlights()

@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad0b304efca46794f945c89b6aa775b6, type: 3}
   m_Name: EnemySquizard
   m_EditorClassIdentifier: 
-  unitType: 0
+  unitType: 2
   sprite: {fileID: 21300000, guid: b64987df6510c64499c5eecc90ef9440, type: 3}
-  color: {r: 1, g: 0.033018887, b: 0.033018887, a: 0}
   owner: 1
