@@ -272,7 +272,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Retry
+  m_Text: Surprise
 --- !u!222 &339969779
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3723,7 +3723,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1388519404}
         m_TargetAssemblyTypeName: GameController, Assembly-CSharp
-        m_MethodName: Retry
+        m_MethodName: LoadSurprise
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
