@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad0b304efca46794f945c89b6aa775b6, type: 3}
   m_Name: Fuzzem
   m_EditorClassIdentifier: 
-  unitType: 5
+  unitType: 6
   sprite: {fileID: 21300000, guid: 1da465faa1b3887428ba908e2b68561f, type: 3}
   hasMoved: 0
   owner: 1

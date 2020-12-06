@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
+    public GameObject pauseMenu;
     public GameObject victoryUI;
 
     public GameObject gameOverText;
@@ -26,6 +27,24 @@ public class GameController : MonoBehaviour
         turnOwner = 0;
         enemyController = GetComponent<EnemyController>();
         playerTiles = GameObject.FindGameObjectWithTag("PlayerTiles").GetComponent<Tilemap>();
+
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            if (pauseMenu.activeSelf)
+            {
+                turnOwner = 0;
+                pauseMenu.SetActive(false);
+            }
+            else if (!pauseMenu.activeSelf)
+            {
+                turnOwner = 1;
+                pauseMenu.SetActive(true);
+            }
+        }
 
     }
 
@@ -101,4 +120,5 @@ public class GameController : MonoBehaviour
     {
         Application.Quit();
     }
+
 }
