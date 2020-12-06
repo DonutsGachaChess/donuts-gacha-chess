@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class PieceSelector : MonoBehaviour
 {
-    public TileBase emptyTile;
     public TileBase highlightedTile;
+
+    private GameController gameController;
 
     private Tilemap playerTiles;
     private Tilemap highlightTilemap;
@@ -24,6 +24,7 @@ public class PieceSelector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         playerTiles = GameObject.FindGameObjectWithTag("PlayerTiles").GetComponent<Tilemap>();
         highlightTilemap = GameObject.FindGameObjectWithTag("HighlightTilemap").GetComponent<Tilemap>();
     }
@@ -31,71 +32,80 @@ public class PieceSelector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-        
-        // Left mouse button
-        if (Input.GetMouseButtonUp(0))
+        if (gameController.turnOwner == 0 && !gameController.isGameOver)
         {
-            int xCoord = Mathf.FloorToInt(hit.point.x);
-            int yCoord = Mathf.FloorToInt(hit.point.y);
-
-
-            PlayerTile clickedTile = (PlayerTile) playerTiles.GetTile(new Vector3Int(xCoord, yCoord, 0));
-            if (!pieceSelected)
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            // Left mouse button
+            if (Input.GetMouseButtonUp(0))
             {
-                // Can only select your pieces
-                if (clickedTile != null && clickedTile.owner == 0)
-                {
-                    highlightedTileCoords.Add(new Tuple<int, int>(xCoord, yCoord));
-                    possibleMoveCoords = getPossibleMoves(clickedTile, xCoord, yCoord);
-                    highlightedTileCoords.AddRange(possibleMoveCoords);
-                    foreach (Tuple<int, int> coords in highlightedTileCoords)
-                    {
-                        highlightTilemap.SetTile(new Vector3Int(coords.Item1, coords.Item2, 0), highlightedTile);
-                    }
-
-                    currentlySelectedTile = clickedTile;
-
-                    pieceSelected = true;
-                    selectedTileXCoord = xCoord;
-                    selectedTileYCoord = yCoord;
-                }
-            }
-            else
-            {
-                Tuple<int, int> clickedTileCoord = new Tuple<int, int>(xCoord, yCoord);
-                bool validMove = possibleMoveCoords.Contains(clickedTileCoord);
-
-                if ((clickedTile == null || clickedTile.owner != currentlySelectedTile.owner) && validMove)
-                {
-                    pieceSelected = false;
-                    playerTiles.SetTile(new Vector3Int(xCoord, yCoord, 0), currentlySelectedTile);
-
-                    // Remove tile from old position
-                    playerTiles.SetTile(new Vector3Int(selectedTileXCoord, selectedTileYCoord, 0), emptyTile);
-
-                    RemoveHighlights();
-                }
-                else if (clickedTile != null && clickedTile.owner == currentlySelectedTile.owner)
-                {
-                    Debug.LogError("tried to take own piece");
-                    // TODO: display error to user, sound effect
-                    currentlySelectedTile = null;
-                    pieceSelected = false;
-                    RemoveHighlights();
-                }
-
+                handleLeftMouseButton(hit);
             }
 
+            // Right mouse button
+            if (Input.GetMouseButtonUp(1))
+            {
+                RemoveHighlights();
+
+                currentlySelectedTile = null;
+                pieceSelected = false;
+            }
+        } 
+        else
+        {
+            // Display some message that it's not the player's turn?
         }
+    }
 
-        // Right mouse button
-        if (Input.GetMouseButtonUp(1))
+    private void handleLeftMouseButton(RaycastHit2D hit)
+    {
+        int xCoord = Mathf.FloorToInt(hit.point.x);
+        int yCoord = Mathf.FloorToInt(hit.point.y);
+
+        PlayerTile clickedTile = (PlayerTile)playerTiles.GetTile(new Vector3Int(xCoord, yCoord, 0));
+        if (!pieceSelected)
         {
-            RemoveHighlights();
+            // Can only select your pieces
+            if (clickedTile != null && clickedTile.owner == 0)
+            {
+                highlightedTileCoords.Add(new Tuple<int, int>(xCoord, yCoord));
+                possibleMoveCoords = getPossibleMoves(clickedTile, xCoord, yCoord);
+                highlightedTileCoords.AddRange(possibleMoveCoords);
+                foreach (Tuple<int, int> coords in highlightedTileCoords)
+                {
+                    highlightTilemap.SetTile(new Vector3Int(coords.Item1, coords.Item2, 0), highlightedTile);
+                }
 
-            currentlySelectedTile = null;
-            pieceSelected = false;
+                currentlySelectedTile = clickedTile;
+
+                pieceSelected = true;
+                selectedTileXCoord = xCoord;
+                selectedTileYCoord = yCoord;
+            }
+        }
+        else
+        {
+            Tuple<int, int> clickedTileCoord = new Tuple<int, int>(xCoord, yCoord);
+            bool validMove = possibleMoveCoords.Contains(clickedTileCoord);
+
+            if ((clickedTile == null || clickedTile.owner != currentlySelectedTile.owner) && validMove)
+            {
+                pieceSelected = false;
+                playerTiles.SetTile(new Vector3Int(xCoord, yCoord, 0), currentlySelectedTile);
+
+                // Remove tile from old position
+                playerTiles.SetTile(new Vector3Int(selectedTileXCoord, selectedTileYCoord, 0), null);
+
+                RemoveHighlights();
+                gameController.EndTurn();
+            }
+            else if (clickedTile != null && clickedTile.owner == currentlySelectedTile.owner)
+            {
+                Debug.LogError("tried to take own piece");
+                // TODO: display error to user, sound effect
+                currentlySelectedTile = null;
+                pieceSelected = false;
+                RemoveHighlights();
+            }
         }
     }
 
@@ -149,7 +159,7 @@ public class PieceSelector : MonoBehaviour
     {
         foreach (Tuple<int, int> coord in highlightedTileCoords)
         {
-            highlightTilemap.SetTile(new Vector3Int(coord.Item1, coord.Item2, 0), emptyTile);
+            highlightTilemap.SetTile(new Vector3Int(coord.Item1, coord.Item2, 0), null);
         }
         highlightedTileCoords.Clear();
     }
