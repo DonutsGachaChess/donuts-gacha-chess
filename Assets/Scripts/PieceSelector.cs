@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -16,7 +17,7 @@ public class PieceSelector : MonoBehaviour
     private int selectedTileXCoord;
     private int selectedTileYCoord;
 
-    private List<Tile> highlightedTiles;
+    private List<Tuple<int, int>> highlightedTileCoords = new List<Tuple<int, int>>();
 
     // Start is called before the first frame update
     void Start()
@@ -45,7 +46,7 @@ public class PieceSelector : MonoBehaviour
             if (!pieceSelected)
             {
                 highlightTilemap.SetTile(new Vector3Int(xCoord, yCoord, 0), highlightedTile);
-
+                highlightedTileCoords.Add(new Tuple<int, int>(xCoord, yCoord));
                 // TODO: add movement highlight
 
                 currentlySelectedTile = clickedTile;
@@ -65,6 +66,9 @@ public class PieceSelector : MonoBehaviour
 
                     // Remove tile from old position
                     playerTiles.SetTile(new Vector3Int(selectedTileXCoord, selectedTileYCoord, 0), emptyTile);
+
+                    RemoveHighlights();
+                    // TODO: remove movement highlight
                 }
                 else
                 {
@@ -81,9 +85,19 @@ public class PieceSelector : MonoBehaviour
         // Right mouse button
         if (Input.GetMouseButtonUp(1))
         {
-            // TODO: remove highlight
+            RemoveHighlights();
+
             currentlySelectedTile = null;
             pieceSelected = false;
         }
+    }
+
+    private void RemoveHighlights()
+    {
+        foreach (Tuple<int, int> coord in highlightedTileCoords)
+        {
+            highlightTilemap.SetTile(new Vector3Int(coord.Item1, coord.Item2, 0), emptyTile);
+        }
+        highlightedTileCoords.Clear();
     }
 }
