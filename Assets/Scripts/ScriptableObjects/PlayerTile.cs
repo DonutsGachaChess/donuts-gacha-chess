@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -6,9 +7,9 @@ using UnityEngine.Tilemaps;
 [CreateAssetMenu]
 public class PlayerTile : TileBase
 {
+    [SerializeField, SerializeReference]
     public UnitType unitType;
     public Sprite sprite;
-    public Color color;
 
     // 0 is you, 1 is enemy. Gonna change this later
     public int owner;
@@ -19,4 +20,32 @@ public class PlayerTile : TileBase
     }
 
 
+}
+
+
+public interface UnitType
+{
+    List<Tuple<int, int>> getPossibleMoves(int xCoord, int yCoord);
+}
+
+public class Cavadeer : UnitType
+{
+    List<Tuple<int, int>> UnitType.getPossibleMoves(int xCoord, int yCoord)
+    {
+        List<Tuple<int, int>> movementCoords = new List<Tuple<int, int>>();
+
+        movementCoords.Add(new Tuple<int, int>(xCoord + 1, yCoord + 1));
+        movementCoords.Add(new Tuple<int, int>(xCoord + 2, yCoord + 2));
+
+        movementCoords.Add(new Tuple<int, int>(xCoord - 1, yCoord - 1));
+        movementCoords.Add(new Tuple<int, int>(xCoord - 2, yCoord - 2));
+
+        movementCoords.Add(new Tuple<int, int>(xCoord + 1, yCoord - 1));
+        movementCoords.Add(new Tuple<int, int>(xCoord + 2, yCoord - 2));
+
+        movementCoords.Add(new Tuple<int, int>(xCoord - 1, yCoord + 1));
+        movementCoords.Add(new Tuple<int, int>(xCoord - 2, yCoord + 2));
+
+        return movementCoords;
+    }
 }

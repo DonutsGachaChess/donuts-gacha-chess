@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad0b304efca46794f945c89b6aa775b6, type: 3}
   m_Name: Cavadeer
   m_EditorClassIdentifier: 
-  unitType: 0
+  unitType:
+    id: 0
   sprite: {fileID: 21300000, guid: e943c9cfad6b75446a15041733b20517, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
   owner: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: , ns: , asm: }

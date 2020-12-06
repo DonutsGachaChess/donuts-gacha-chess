@@ -30,11 +30,6 @@ public class PieceSelector : MonoBehaviour
     void Update()
     {
         RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-        if (hit)
-        {
-            Vector2 point = hit.point;
-        }
-
         
         // Left mouse button
         if (Input.GetMouseButtonUp(0))
@@ -47,6 +42,10 @@ public class PieceSelector : MonoBehaviour
             {
                 highlightTilemap.SetTile(new Vector3Int(xCoord, yCoord, 0), highlightedTile);
                 highlightedTileCoords.Add(new Tuple<int, int>(xCoord, yCoord));
+
+                
+
+
                 // TODO: add movement highlight
 
                 currentlySelectedTile = clickedTile;
