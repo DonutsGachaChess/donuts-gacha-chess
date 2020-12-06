@@ -24,7 +24,7 @@ public class PieceSpawner : MonoBehaviour
                 if (roll <= 13 && currentUnits < maxUnits)
                 {
                     PlayerTile tile = ScriptableObject.CreateInstance<PlayerTile>();
-                    int typeRoll = Random.Range(0, 5);
+                    int typeRoll = Random.Range(0, playerUnits.Length);
 
                     PlayerTile template = playerUnits[typeRoll];
                     tile.sprite = template.sprite;

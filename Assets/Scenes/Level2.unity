@@ -3662,7 +3662,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1388519404}
         m_TargetAssemblyTypeName: GameController, Assembly-CSharp
-        m_MethodName: LoadSurprise
+        m_MethodName: LoadLevel3
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3770,7 +3770,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0a50ba90fc72144f86e7bad2ce1713a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxUnits: 8
+  maxUnits: 6
   fuzzem: {fileID: 11400000, guid: b8759cc303f0b924b97c0e2056e57500, type: 2}
   fuzzemArcher: {fileID: 11400000, guid: 1d74b46569115f74889ab84ba11ecb0a, type: 2}
 --- !u!1 &1422000023

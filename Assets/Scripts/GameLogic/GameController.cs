@@ -87,6 +87,11 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene("Level2");
     }
 
+    public void LoadLevel3()
+    {
+        SceneManager.LoadScene("Level3");
+    }
+
     public void LoadSurprise()
     {
         SceneManager.LoadScene("Surprise");

@@ -187,6 +187,32 @@ public class PieceSelector : MonoBehaviour
                 movementCoords.Add(new Tuple<int, int>(xCoord - 2, yCoord));
                 movementCoords.Add(new Tuple<int, int>(xCoord - 3, yCoord));
                 break;
+            case UnitType.GrizzledGrizzly:
+                movementCoords.Add(new Tuple<int, int>(xCoord, yCoord + 1));
+                movementCoords.Add(new Tuple<int, int>(xCoord, yCoord + 2));
+                movementCoords.Add(new Tuple<int, int>(xCoord, yCoord + 3));
+                movementCoords.Add(new Tuple<int, int>(xCoord, yCoord + 4));
+                movementCoords.Add(new Tuple<int, int>(xCoord, yCoord + 5));
+
+                movementCoords.Add(new Tuple<int, int>(xCoord, yCoord - 1));
+                movementCoords.Add(new Tuple<int, int>(xCoord, yCoord - 2));
+                movementCoords.Add(new Tuple<int, int>(xCoord, yCoord - 3));
+                movementCoords.Add(new Tuple<int, int>(xCoord, yCoord - 4));
+                movementCoords.Add(new Tuple<int, int>(xCoord, yCoord - 5));
+
+                movementCoords.Add(new Tuple<int, int>(xCoord + 1, yCoord));
+                movementCoords.Add(new Tuple<int, int>(xCoord + 2, yCoord));
+                movementCoords.Add(new Tuple<int, int>(xCoord + 3, yCoord));
+                movementCoords.Add(new Tuple<int, int>(xCoord + 4, yCoord));
+                movementCoords.Add(new Tuple<int, int>(xCoord + 5, yCoord));
+
+                movementCoords.Add(new Tuple<int, int>(xCoord - 1, yCoord));
+                movementCoords.Add(new Tuple<int, int>(xCoord - 2, yCoord));
+                movementCoords.Add(new Tuple<int, int>(xCoord - 3, yCoord));
+                movementCoords.Add(new Tuple<int, int>(xCoord - 4, yCoord));
+                movementCoords.Add(new Tuple<int, int>(xCoord - 5, yCoord));
+
+                break;
             default:
                 movementCoords.Add(new Tuple<int, int>(xCoord + 1, yCoord + 1));
                 movementCoords.Add(new Tuple<int, int>(xCoord - 1, yCoord - 1));

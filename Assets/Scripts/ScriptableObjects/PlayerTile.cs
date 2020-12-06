@@ -32,6 +32,7 @@ public enum UnitType
     Squizard,
     Turtank,
     Snek,
+    GrizzledGrizzly,
     Fuzzem,
     FuzzemArcher
 }
