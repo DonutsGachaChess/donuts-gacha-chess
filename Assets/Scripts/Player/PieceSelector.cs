@@ -164,30 +164,33 @@ public class PieceSelector : MonoBehaviour
                 break;
             case UnitType.Turtank:
                 movementCoords.Add(new Tuple<int, int>(xCoord, yCoord + 1));
-                movementCoords.Add(new Tuple<int, int>(xCoord - 1, yCoord + 1));
-                movementCoords.Add(new Tuple<int, int>(xCoord + 1, yCoord + 1));
+                //movementCoords.Add(new Tuple<int, int>(xCoord - 1, yCoord + 1));
+                //movementCoords.Add(new Tuple<int, int>(xCoord + 1, yCoord + 1));
 
                 movementCoords.Add(new Tuple<int, int>(xCoord, yCoord + 2));
-                movementCoords.Add(new Tuple<int, int>(xCoord + 1, yCoord + 2));
-                movementCoords.Add(new Tuple<int, int>(xCoord - 1, yCoord + 2));
+                //movementCoords.Add(new Tuple<int, int>(xCoord + 1, yCoord + 2));
+               // movementCoords.Add(new Tuple<int, int>(xCoord - 1, yCoord + 2));
 
-                movementCoords.Add(new Tuple<int, int>(xCoord, yCoord + 3));
-                movementCoords.Add(new Tuple<int, int>(xCoord + 1, yCoord + 3));
-                movementCoords.Add(new Tuple<int, int>(xCoord - 1, yCoord + 3));
+                //movementCoords.Add(new Tuple<int, int>(xCoord, yCoord + 3));
+                //movementCoords.Add(new Tuple<int, int>(xCoord + 1, yCoord + 3));
+                //movementCoords.Add(new Tuple<int, int>(xCoord - 1, yCoord + 3));
 
 
                 movementCoords.Add(new Tuple<int, int>(xCoord, yCoord - 1));
                 movementCoords.Add(new Tuple<int, int>(xCoord, yCoord - 2));
-                movementCoords.Add(new Tuple<int, int>(xCoord, yCoord - 3));
+                //movementCoords.Add(new Tuple<int, int>(xCoord, yCoord - 3));
 
                 movementCoords.Add(new Tuple<int, int>(xCoord + 1, yCoord));
                 movementCoords.Add(new Tuple<int, int>(xCoord + 2, yCoord));
-                movementCoords.Add(new Tuple<int, int>(xCoord + 3, yCoord));
+                //movementCoords.Add(new Tuple<int, int>(xCoord + 3, yCoord));
 
                 movementCoords.Add(new Tuple<int, int>(xCoord - 1, yCoord));
                 movementCoords.Add(new Tuple<int, int>(xCoord - 2, yCoord));
-                movementCoords.Add(new Tuple<int, int>(xCoord - 3, yCoord));
+                //movementCoords.Add(new Tuple<int, int>(xCoord - 3, yCoord));
                 break;
+
+                //commented out options are adjustments to movement to bring it in line with plans for characer behavior.
+
             default:
                 movementCoords.Add(new Tuple<int, int>(xCoord + 1, yCoord + 1));
                 movementCoords.Add(new Tuple<int, int>(xCoord - 1, yCoord - 1));

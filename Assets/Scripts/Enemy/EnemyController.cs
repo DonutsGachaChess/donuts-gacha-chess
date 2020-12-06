@@ -21,8 +21,10 @@ public class EnemyController : MonoBehaviour
         int unitsAdded = 0;
         for (int i = 1; i < 17; i++)
         {
-            for (int j = 9; j >= 8; j++)
-            {
+            //for (int j = 9; j >= 8; j++)
+            int j = 9;
+
+            //{
                 if (unitsAdded < maxUnits)
                 {
                     int coinFlip = Random.Range(0, 2);
@@ -48,7 +50,7 @@ public class EnemyController : MonoBehaviour
                         unitsAdded++;
                     }
                 }
-            }
+            //}
         }
     }
 

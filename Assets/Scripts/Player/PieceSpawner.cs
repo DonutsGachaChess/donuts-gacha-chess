@@ -12,8 +12,8 @@ public class PieceSpawner : MonoBehaviour
     void Start()
     {
         playerTiles = GameObject.FindGameObjectWithTag("PlayerTiles").GetComponent<Tilemap>();
-        playerTiles.SetTile(new Vector3Int(0, 0, 0), testTile);
-        playerTiles.SetTile(new Vector3Int(17, 0, 0), testTile);
+        //playerTiles.SetTile(new Vector3Int(0, 0, 0), testTile);
+        //playerTiles.SetTile(new Vector3Int(17, 0, 0), testTile);
 
         int currentUnits = 0;
         for (int i = 1; i <= 16; i++)

@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour
         turnOwner = 0;
         enemyController = GetComponent<EnemyController>();
         playerTiles = GameObject.FindGameObjectWithTag("PlayerTiles").GetComponent<Tilemap>();
+
     }
 
     internal void EndTurn()
