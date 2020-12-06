@@ -34,5 +34,6 @@ public enum UnitType
     Snek,
     GrizzledGrizzly,
     Fuzzem,
-    FuzzemArcher
+    FuzzemArcher,
+    Kirei
 }

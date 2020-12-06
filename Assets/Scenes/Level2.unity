@@ -3342,7 +3342,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: You've saved the forest!
+  m_Text: You've saved the forest... for now
 --- !u!222 &970979804
 CanvasRenderer:
   m_ObjectHideFlags: 0

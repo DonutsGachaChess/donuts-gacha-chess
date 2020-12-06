@@ -213,6 +213,15 @@ public class PieceSelector : MonoBehaviour
                 movementCoords.Add(new Tuple<int, int>(xCoord - 5, yCoord));
 
                 break;
+            case UnitType.Kirei:
+                for (int i = 0; i < 20; i++)
+                {
+                    for (int j = 0; j < 20; j++)
+                    {
+                        movementCoords.Add(new Tuple<int, int>(i, j));
+                    }
+                }
+                break;
             default:
                 movementCoords.Add(new Tuple<int, int>(xCoord + 1, yCoord + 1));
                 movementCoords.Add(new Tuple<int, int>(xCoord - 1, yCoord - 1));
