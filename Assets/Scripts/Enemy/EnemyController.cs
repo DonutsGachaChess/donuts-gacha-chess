@@ -1,9 +1,13 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Random = UnityEngine.Random;
 
 public class EnemyController : MonoBehaviour
 {
+    public PlayerTile fuzzem;
+    public PlayerTile fuzzemArcher;
+
     private GameController gameController;
 
     private Tilemap playerTiles;
@@ -14,6 +18,23 @@ public class EnemyController : MonoBehaviour
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         playerTiles = GameObject.FindGameObjectWithTag("PlayerTiles").GetComponent<Tilemap>();
         highlightTilemap = GameObject.FindGameObjectWithTag("HighlightTilemap").GetComponent<Tilemap>();
+
+        for (int i = 1; i < 17; i++)
+        {
+            int coinFlip = Random.Range(0, 2);
+            if (coinFlip == 1)
+            {
+                int fuzzemFlip = Random.Range(0, 2);
+                if (fuzzemFlip == 0)
+                {
+                    playerTiles.SetTile(new Vector3Int(i, 9, 0), fuzzem);
+                }
+                else
+                {
+                    playerTiles.SetTile(new Vector3Int(i, 9, 0), fuzzemArcher);
+                }
+            }
+        }
     }
 
     public void ProcessEnemyUnits()
@@ -40,9 +61,25 @@ public class EnemyController : MonoBehaviour
             case UnitType.TurxedoMask:
                 newPosition = new Tuple<int, int>(currentX, currentY - 1);
                 break;
+            case UnitType.Fuzzem:
+                newPosition = new Tuple<int, int>(currentX, currentY - 1);
+                break;
+            case UnitType.FuzzemArcher:
+                int newX = currentX + Random.Range(-1, 2);
+                if (newX <= 1) newX = 1;
+                if (newX >= 15) newX = 15;
+                newPosition = new Tuple<int, int>(newX, currentY - 1);
+                break;
         }
 
-        playerTiles.SetTile(new Vector3Int(newPosition.Item1, newPosition.Item2, 0), currentTile);
-        playerTiles.SetTile(new Vector3Int(currentX, currentY, 0), null);
+        PlayerTile nextTile = (PlayerTile) playerTiles.GetTile(new Vector3Int(newPosition.Item1, newPosition.Item2, 0));
+
+        // Don't destroy enemy piece
+        if (nextTile == null || nextTile.owner != 1)
+        {
+            playerTiles.SetTile(new Vector3Int(newPosition.Item1, newPosition.Item2, 0), currentTile);
+            playerTiles.SetTile(new Vector3Int(currentX, currentY, 0), null);
+        }
+
     }
 }

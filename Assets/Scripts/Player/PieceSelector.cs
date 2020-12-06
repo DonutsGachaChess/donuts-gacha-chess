@@ -38,7 +38,7 @@ public class PieceSelector : MonoBehaviour
             // Left mouse button
             if (Input.GetMouseButtonUp(0))
             {
-                handleLeftMouseButton(hit);
+                HandleLeftMouseButton(hit);
             }
 
             // Right mouse button
@@ -56,7 +56,7 @@ public class PieceSelector : MonoBehaviour
         }
     }
 
-    private void handleLeftMouseButton(RaycastHit2D hit)
+    private void HandleLeftMouseButton(RaycastHit2D hit)
     {
         int xCoord = Mathf.FloorToInt(hit.point.x);
         int yCoord = Mathf.FloorToInt(hit.point.y);
@@ -68,7 +68,7 @@ public class PieceSelector : MonoBehaviour
             if (clickedTile != null && clickedTile.owner == 0)
             {
                 highlightedTileCoords.Add(new Tuple<int, int>(xCoord, yCoord));
-                possibleMoveCoords = getPossibleMoves(clickedTile, xCoord, yCoord);
+                possibleMoveCoords = GetPossibleMoves(clickedTile, xCoord, yCoord);
                 highlightedTileCoords.AddRange(possibleMoveCoords);
                 foreach (Tuple<int, int> coords in highlightedTileCoords)
                 {
@@ -109,7 +109,7 @@ public class PieceSelector : MonoBehaviour
         }
     }
 
-    private List<Tuple<int, int>> getPossibleMoves(PlayerTile clickedTile, int xCoord, int yCoord)
+    private List<Tuple<int, int>> GetPossibleMoves(PlayerTile clickedTile, int xCoord, int yCoord)
     {
         List<Tuple<int, int>> movementCoords = new List<Tuple<int, int>>();
 

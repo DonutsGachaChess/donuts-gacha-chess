@@ -20,5 +20,7 @@ public enum UnitType
 {
     Cavadeer,
     TurxedoMask,
-    Squizard 
+    Squizard,
+    Fuzzem,
+    FuzzemArcher
 }
