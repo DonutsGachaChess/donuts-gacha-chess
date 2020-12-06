@@ -19,19 +19,25 @@ public class EnemyController : MonoBehaviour
         playerTiles = GameObject.FindGameObjectWithTag("PlayerTiles").GetComponent<Tilemap>();
         highlightTilemap = GameObject.FindGameObjectWithTag("HighlightTilemap").GetComponent<Tilemap>();
 
+        int unitsAdded = 0;
+        int maxUnits = 8;
         for (int i = 1; i < 17; i++)
         {
-            int coinFlip = Random.Range(0, 2);
-            if (coinFlip == 1)
+            if (unitsAdded <= maxUnits)
             {
-                int fuzzemFlip = Random.Range(0, 2);
-                if (fuzzemFlip == 0)
+                int coinFlip = Random.Range(0, 2);
+                if (coinFlip == 1)
                 {
-                    playerTiles.SetTile(new Vector3Int(i, 9, 0), fuzzem);
-                }
-                else
-                {
-                    playerTiles.SetTile(new Vector3Int(i, 9, 0), fuzzemArcher);
+                    int fuzzemFlip = Random.Range(0, 2);
+                    if (fuzzemFlip == 0)
+                    {
+                        playerTiles.SetTile(new Vector3Int(i, 9, 0), fuzzem);
+                    }
+                    else
+                    {
+                        playerTiles.SetTile(new Vector3Int(i, 9, 0), fuzzemArcher);
+                    }
+                    unitsAdded++;
                 }
             }
         }
