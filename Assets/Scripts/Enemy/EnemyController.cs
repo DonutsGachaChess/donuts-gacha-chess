@@ -21,36 +21,31 @@ public class EnemyController : MonoBehaviour
         int unitsAdded = 0;
         for (int i = 1; i < 17; i++)
         {
-            //for (int j = 9; j >= 8; j++)
-            int j = 9;
-
-            //{
-                if (unitsAdded < maxUnits)
+            if (unitsAdded < maxUnits)
+            {
+                int coinFlip = Random.Range(0, 2);
+                if (coinFlip == 1)
                 {
-                    int coinFlip = Random.Range(0, 2);
-                    if (coinFlip == 1)
+                    int fuzzemFlip = Random.Range(0, 2);
+                    if (fuzzemFlip == 0)
                     {
-                        int fuzzemFlip = Random.Range(0, 2);
-                        if (fuzzemFlip == 0)
-                        {
-                            PlayerTile fuzzemInstance = ScriptableObject.CreateInstance<PlayerTile>();
-                            fuzzemInstance.sprite = fuzzem.sprite;
-                            fuzzemInstance.owner = fuzzem.owner;
-                            fuzzemInstance.unitType = fuzzem.unitType;
-                            playerTiles.SetTile(new Vector3Int(i, j, 0), fuzzemInstance);
-                        }
-                        else
-                        {
-                            PlayerTile fuzzemInstance = ScriptableObject.CreateInstance<PlayerTile>();
-                            fuzzemInstance.sprite = fuzzemArcher.sprite;
-                            fuzzemInstance.owner = fuzzemArcher.owner;
-                            fuzzemInstance.unitType = fuzzemArcher.unitType;
-                            playerTiles.SetTile(new Vector3Int(i, j, 0), fuzzemInstance);
-                        }
-                        unitsAdded++;
+                        PlayerTile fuzzemInstance = ScriptableObject.CreateInstance<PlayerTile>();
+                        fuzzemInstance.sprite = fuzzem.sprite;
+                        fuzzemInstance.owner = fuzzem.owner;
+                        fuzzemInstance.unitType = fuzzem.unitType;
+                        playerTiles.SetTile(new Vector3Int(i, 9, 0), fuzzemInstance);
                     }
+                    else
+                    {
+                        PlayerTile fuzzemInstance = ScriptableObject.CreateInstance<PlayerTile>();
+                        fuzzemInstance.sprite = fuzzemArcher.sprite;
+                        fuzzemInstance.owner = fuzzemArcher.owner;
+                        fuzzemInstance.unitType = fuzzemArcher.unitType;
+                        playerTiles.SetTile(new Vector3Int(i, 9, 0), fuzzemInstance);
+                    }
+                    unitsAdded++;
                 }
-            //}
+            }
         }
     }
 
