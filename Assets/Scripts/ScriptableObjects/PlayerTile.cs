@@ -23,14 +23,14 @@ public class PlayerTile : TileBase
 }
 
 
-public interface UnitType
+public abstract class UnitType : MonoBehaviour
 {
-    List<Tuple<int, int>> getPossibleMoves(int xCoord, int yCoord);
+    public abstract List<Tuple<int, int>> getPossibleMoves(int xCoord, int yCoord);
 }
 
 public class Cavadeer : UnitType
 {
-    List<Tuple<int, int>> UnitType.getPossibleMoves(int xCoord, int yCoord)
+    public override List<Tuple<int, int>> getPossibleMoves(int xCoord, int yCoord)
     {
         List<Tuple<int, int>> movementCoords = new List<Tuple<int, int>>();
 
@@ -48,4 +48,5 @@ public class Cavadeer : UnitType
 
         return movementCoords;
     }
+
 }
