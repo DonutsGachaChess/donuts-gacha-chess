@@ -98,7 +98,8 @@ public class PieceSelector : MonoBehaviour
                 RemoveHighlights();
                 gameController.EndTurn();
             }
-            else if (clickedTile != null && clickedTile.owner == currentlySelectedTile.owner)
+            else if (clickedTile != null && clickedTile.owner == currentlySelectedTile.owner 
+                || currentlySelectedTile.unitType != UnitType.Kirei)
             {
                 Debug.LogError("tried to take own piece");
                 // TODO: display error to user, sound effect
